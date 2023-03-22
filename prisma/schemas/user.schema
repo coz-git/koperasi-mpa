@@ -1,0 +1,4 @@
+model tanpa_model {
+  id    Int @id @default(autoincrement())
+  tanpa Int
+}

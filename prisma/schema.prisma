@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Users {
+  UserId     Int       @id @default(autoincrement())
+  NIK        String
+  NIP        String
+  Name       String
+  Alamat     String
+  Email      String
+  Telp       String
+  Password   String?
+  Role       String    @default("user")
+  Active     Boolean   @default(false)
+  Created_At DateTime  @default(now())
+  Deleted_At DateTime?
+}
+
+model Todo {
+  id   Int    @id @default(autoincrement())
+  todo String
+  date String
+  time String
+}
+
+model tbl_dummy {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model coba {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model tanpa_model {
+  id    Int @id @default(autoincrement())
+  tanpa Int
+}
