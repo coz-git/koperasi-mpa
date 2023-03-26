@@ -1,12 +1,18 @@
 'use client';
+import { useRef } from 'react';
 
 import React from 'react';
 
 const Home = () => {
+  const email = useRef('');
+  const password = useRef('');
+
   const handleSubmit = () => {
+    console.log(email.current);
+    console.log(password.current);
     // e.preventDefault();
     // console.log(e.target);
-    console.log('okeeyy');
+    // console.log('okeeyy');
   };
 
   return (
@@ -25,6 +31,10 @@ const Home = () => {
               Sign in to your account
             </h1>
             <form className="space-y-4 md:space-y-6" action="#">
+              {/* <TextBox
+                lableText="User Name"
+                onChange={(e) => (userName.current = e.target.value)}
+              /> */}
               <div>
                 <label
                   htmlFor="email"
@@ -33,6 +43,7 @@ const Home = () => {
                   Your email
                 </label>
                 <input
+                  onChange={(e) => (email.current = e.target.value)}
                   type="text"
                   name="email"
                   id="email"
@@ -49,6 +60,7 @@ const Home = () => {
                   Password
                 </label>
                 <input
+                  onChange={(e) => (password.current = e.target.value)}
                   type="password"
                   name="password"
                   id="password"
