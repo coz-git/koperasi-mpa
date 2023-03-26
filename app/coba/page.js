@@ -4,8 +4,10 @@ import Navbar from '../../components/navbar';
 const Page = () => {
   return (
     <>
-      <Navbar />
-      <div>Pageee coba</div>
+      <div className="flex flex-column">
+        <Navbar />
+        <div>Pageee coba</div>
+      </div>
     </>
   );
 };

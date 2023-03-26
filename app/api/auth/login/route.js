@@ -7,9 +7,13 @@ const KEY = process.env.JWT_KEY;
 export async function POST(req) {
   const data = await req.json();
 
+  // console.log(data);
+
   const user = await DB.Users.findFirst({
-    where: { Email: data.Email },
+    where: { Email: data.email },
   });
+
+  // console.log(user);
 
   if (user == null) {
     return NextResponse.json('User Not Found', { status: 400 });
