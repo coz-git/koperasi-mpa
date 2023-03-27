@@ -1,13 +1,10 @@
 import { NextResponse } from 'next/server';
 import DB from './../../../lib/db';
+// import { getServerSession } from 'next-auth/next';
+// import { authOptions } from './auth/[...nextauth]';
 
 export async function GET(req) {
   const data = await DB.Users.findMany();
-  // let data = {
-  //   name: 'Hello, Coz!',
-  //   city: 'bogor',
-  //   random: [{ name: 'lapotp' }, { name: 'fan' }, { name: 'mouse' }],
-  // };
 
   return NextResponse.json(data, { status: 200 });
 }

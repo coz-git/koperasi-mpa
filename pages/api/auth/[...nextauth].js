@@ -21,7 +21,7 @@ export const authOptions = {
       async authorize(credentials, req) {
         const { email, password } = credentials;
 
-        const res = await fetch('http://localhost:3000/api/auth/login', {
+        const res = await fetch(`${process.env.URL_API}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
