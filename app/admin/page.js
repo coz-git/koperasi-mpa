@@ -1,14 +1,11 @@
-'use client';
-
 import React from 'react';
-import { Navbar } from 'flowbite-react';
-
+import Head from 'next/head';
 const Page = () => {
-    return (
-        <>
-            <p>okeey</p>
-        </>
-    );
+  return (
+    <>
+      <p>okeey</p>
+    </>
+  );
 };
 
 export default Page;

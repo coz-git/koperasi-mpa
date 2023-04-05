@@ -20,11 +20,7 @@ export default function RootLayout({ children, session }) {
   return (
     <html lang="en">
       <head>
-        <link
-          id="theme-css"
-          href="/themes/lara-light-indigo/theme.css"
-          rel="stylesheet"
-        ></link>
+        <title>Koperasi MPA || Coz</title>
       </head>
       <body>
         <SessionProvider>
