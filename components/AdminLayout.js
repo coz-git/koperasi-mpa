@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import AdminSidebar from '../components/AdminSidebar';
 import AppTopbar from '../components/AppTopbar';
 // import AppConfig from './AppConfig';
-import { LayoutContext } from '../context/layoutcontext';
+import { LayoutContext } from '../context/layoutContext';
 import PrimeReact from 'primereact/api';
 
 const AdminLayout = (props) => {

@@ -12,7 +12,7 @@ const AppBar = () => {
         Home
       </Link>
 
-      <Link className="text-sky-600 hover:text-sky-700" href={'/admin/panel'}>
+      <Link className="text-sky-600 hover:text-sky-700" href={'/admin'}>
         Admin Panel
       </Link>
       <Link className="text-sky-600 hover:text-sky-700" href={'/user'}>

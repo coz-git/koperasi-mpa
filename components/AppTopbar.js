@@ -7,7 +7,7 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { LayoutContext } from '../context/layoutcontext';
+import { LayoutContext } from '../context/layoutContext';
 
 const AppTopbar = forwardRef((props, ref) => {
   const { layoutState, onMenuToggle, showProfileSidebar } =
@@ -56,7 +56,7 @@ const AppTopbar = forwardRef((props, ref) => {
           <i className="pi pi-user"></i>
           <span>Profile</span>
         </button>
-        <Link href="/documentation">
+        <Link href="/auth/login">
           <button type="button" className="p-link layout-topbar-button">
             <i className="pi pi-sign-out"></i>
             <span>Settings</span>
