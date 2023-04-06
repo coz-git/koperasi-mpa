@@ -6,21 +6,28 @@ import { signIn } from 'next-auth/react';
 
 const forgotPassowrd = () => {
   const email = useRef('');
-  const password = useRef('');
 
   const handleSubmit = async () => {
+    // Mutate external data source
+    const res = await fetch(`/api/auth/forgotPassword`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.current,
+      }),
+    });
+
+    // if()
+
+    // const resData = await res.json();
+
+    console.log(resData);
     // console.log(email.current);
     // console.log(password.current);
-
-    const result = await signIn('credentials', {
-      email: email.current,
-      password: password.current,
-      redirect: false,
-      callbackUrl: '/',
-    });
-    console.log(result.error);
-    console.log(result);
   };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
