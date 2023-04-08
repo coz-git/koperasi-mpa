@@ -14,7 +14,11 @@ export async function POST(req) {
 
   const mailData = {
     to: 'blastemail17@gmail.com',
-    from: 'sultankosasih@gmail.com',
+    from: '"Example Team" <admin@mpa.com>',
+    envelope: {
+      from: process.env.MAIL_USER,
+      to: 'blastemail17@gmail.com',
+    },
     subject: `Message From Testing`,
     text: 'Hi! | Sent from: Coz',
     html: `<div>Hi!</div><p>Sent from:
@@ -22,10 +26,12 @@ export async function POST(req) {
   };
 
   transporter.sendMail(mailData, function (err, info) {
-    if (err) console.log(err);
-    else {
-      console.log(info);
+    if (err) {
+      return NextResponse.json('Something Wrong', { status: 400 });
+    } else {
+      return NextResponse.json('Email Reset Password already sended', {
+        status: 200,
+      });
     }
   });
-  return NextResponse.json(user, { status: 200 });
 }
