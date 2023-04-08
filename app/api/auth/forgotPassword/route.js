@@ -25,13 +25,14 @@ export async function POST(req) {
     Coz</p>`,
   };
 
-  transporter.sendMail(mailData, function (err, info) {
-    if (err) {
-      return NextResponse.json('Something Wrong', { status: 400 });
-    } else {
+  return await transporter
+    .sendMail(mailData)
+    .then(() => {
       return NextResponse.json('Email Reset Password already sended', {
         status: 200,
       });
-    }
-  });
+    })
+    .catch(() => {
+      return NextResponse.json('Something Wrong', { status: 400 });
+    });
 }
