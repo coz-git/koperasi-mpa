@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import DB from './../../../../lib/db';
 import transporter from '../../../../lib/transporter';
+import fs from 'fs';
+import path from 'path';
+import * as handlebars from 'handlebars';
 
 export async function POST(req) {
   const reqData = await req.json();
@@ -12,6 +15,15 @@ export async function POST(req) {
     return NextResponse.json('User Not Found', { status: 400 });
   }
 
+  const __dirname = path.resolve();
+  const filePath = path.join(__dirname, 'mail/reset_password.html');
+  const source = fs.readFileSync(filePath, 'utf-8').toString();
+  const template = handlebars.compile(source);
+  const replacements = {
+    url_redirect: process.env.URL_PATH + '/auth/verifyPassword',
+  };
+  const htmlToSend = template(replacements);
+
   const mailData = {
     to: 'blastemail17@gmail.com',
     from: '"Example Team" <admin@mpa.com>',
@@ -20,9 +32,7 @@ export async function POST(req) {
       to: 'blastemail17@gmail.com',
     },
     subject: `Message From Testing`,
-    text: 'Hi! | Sent from: Coz',
-    html: `<div>Hi!</div><p>Sent from:
-    Coz</p>`,
+    html: htmlToSend,
   };
 
   return await transporter

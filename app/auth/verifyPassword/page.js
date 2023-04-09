@@ -44,11 +44,11 @@ const verifyPassword = () => {
                 >
                   Password
                 </label>
-                <div class="relative w-full">
-                  <div class="absolute inset-y-0 right-0 flex items-center px-2">
+                <div className="relative w-full">
+                  <div className="absolute inset-y-0 right-0 flex items-center px-2">
                     <label
-                      class="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label"
-                      for="toggle"
+                      className="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label"
+                      htmlFor="toggle"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? 'hide' : 'show'}
@@ -66,16 +66,16 @@ const verifyPassword = () => {
               </div>
 
               <label
-                class="font-medium block mt-6 text-gray-700"
-                for="password"
+                className="font-medium block mt-6 text-gray-700"
+                htmlFor="password"
               >
                 Retype Password
               </label>
-              <div class="relative w-full">
-                <div class="absolute inset-y-0 right-0 flex items-center px-2">
+              <div className="relative w-full">
+                <div className="absolute inset-y-0 right-0 flex items-center px-2">
                   <label
-                    class="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label"
-                    for="toggle"
+                    className="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label"
+                    htmlFor="toggle"
                     onClick={() => setShowRePassword(!showRePassword)}
                   >
                     {showRePassword ? 'hide' : 'show'}
