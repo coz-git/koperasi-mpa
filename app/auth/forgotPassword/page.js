@@ -1,13 +1,15 @@
 'use client';
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
+import Loading from '../../../components/Loading';
 
 const forgotPassowrd = () => {
   const email = useRef('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     // Mutate external data source
     const res = await fetch(`/api/auth/forgotPassword`, {
       method: 'POST',
@@ -21,13 +23,14 @@ const forgotPassowrd = () => {
 
     // if()
 
-    // const resData = await res.json();
+    const resData = await res.json();
 
     console.log(resData);
-    // console.log(email.current);
-    // console.log(password.current);
+    console.log(email.current);
+    setIsLoading(false);
   };
 
+  if (isLoading) return <Loading />;
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

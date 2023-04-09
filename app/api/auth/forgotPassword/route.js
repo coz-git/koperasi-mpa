@@ -20,7 +20,7 @@ export async function POST(req) {
   const source = fs.readFileSync(filePath, 'utf-8').toString();
   const template = handlebars.compile(source);
   const replacements = {
-    url_redirect: process.env.URL_PATH + '/auth/verifyPassword',
+    url_redirect: process.env.URL_PATH + '/auth/resetPassword',
   };
   const htmlToSend = template(replacements);
 
