@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.7.13",
     "@prisma/client": "^4.11.0",
     "bcryptjs": "^2.4.3",
+    "crypto-js": "^4.1.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "flowbite": "^1.6.4",

@@ -2,29 +2,30 @@
 // import React, { use} from 'react';
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
-import { Password } from 'primereact/password';
-import Loading from '../../../components/Loading';
+import Loading from '../../../../components/Loading';
 
-const resetPassword = () => {
-  const email = useRef('');
+const resetPassword = ({ params }) => {
+  const { key } = params;
+
   const password = useRef('');
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
-    console.log(email.current);
-    console.log(password.current);
+    const res = await fetch(`/api/auth/resetPassword`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        password: password.current,
+        key: key,
+      }),
+    });
+    const resData = await res.json();
 
-    // const result = await signIn('credentials', {
-    //   email: email.current,
-    //   password: password.current,
-    //   redirect: false,
-    //   callbackUrl: '/',
-    // });
-    // console.log(result.error);
-    // console.log(result);
+    console.log(resData);
   };
 
   if (isLoading) return <Loading />;
@@ -85,7 +86,6 @@ const resetPassword = () => {
                   </label>
                 </div>
                 <input
-                  onChange={(e) => (password.current = e.target.value)}
                   type={showRePassword ? 'text' : 'password'}
                   name="password"
                   id="password"

@@ -4,6 +4,7 @@ import transporter from '../../../../lib/transporter';
 import fs from 'fs';
 import path from 'path';
 import * as handlebars from 'handlebars';
+import AES from 'crypto-js/aes';
 
 export async function POST(req) {
   const reqData = await req.json();
@@ -15,21 +16,24 @@ export async function POST(req) {
     return NextResponse.json('User Not Found', { status: 400 });
   }
 
+  const ciphertext = AES.encrypt(user.Email, process.env.AUTH_SECRET);
+  const cryptToken = encodeURIComponent(ciphertext.toString());
+
   const __dirname = path.resolve();
   const filePath = path.join(__dirname, 'mail/reset_password.html');
   const source = fs.readFileSync(filePath, 'utf-8').toString();
   const template = handlebars.compile(source);
   const replacements = {
-    url_redirect: process.env.URL_PATH + '/auth/resetPassword',
+    url_redirect: process.env.URL_PATH + '/auth/resetPassword/' + cryptToken,
   };
   const htmlToSend = template(replacements);
 
   const mailData = {
-    to: 'blastemail17@gmail.com',
-    from: '"Example Team" <admin@mpa.com>',
+    to: user.Email,
+    from: '"MPA - Koperasi Team" <admin@mpa.com>',
     envelope: {
       from: process.env.MAIL_USER,
-      to: 'blastemail17@gmail.com',
+      to: user.Email,
     },
     subject: `Message From Testing`,
     html: htmlToSend,
