@@ -1,7 +1,6 @@
 import { LayoutProvider } from '../../context/layoutContext';
 import '../../styles/layout/layout.scss';
 import AdminLayout from '../../components/AdminLayout';
-import '../../public/themes/lara-light-blue/theme.css';
 
 export const metadata = {
   title: 'Admin page',
