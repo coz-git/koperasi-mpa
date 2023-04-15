@@ -13,7 +13,10 @@ export async function POST(req) {
   });
 
   if (user == null) {
-    return NextResponse.json('User Not Found', { status: 400 });
+    return NextResponse.json(
+      'User Not Found, please recheck your email or contact admin',
+      { status: 400 }
+    );
   }
 
   const ciphertext = AES.encrypt(user.Email, process.env.AUTH_SECRET);

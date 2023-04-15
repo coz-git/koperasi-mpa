@@ -1,20 +1,26 @@
 import { NextResponse } from 'next/server';
 import DB from './../../../../lib/db';
 import jwt from 'jsonwebtoken';
+import { enc, SHA512 } from 'crypto-js';
+import AES from 'crypto-js/aes';
 
 const KEY = process.env.JWT_KEY;
 
 export async function POST(req) {
-  const data = await req.json();
+  const reqData = await req.json();
   const user = await DB.Users.findFirst({
-    where: { Email: data.email },
+    where: { Email: reqData.email },
   });
 
   if (user == null) {
     return NextResponse.json('User Not Found', { status: 400 });
   }
 
-  if (user.Password != data.password) {
+  var urlDecoded = decodeURIComponent(reqData.password);
+  var base64Decoded = enc.Base64.parse(urlDecoded);
+  var hashedPassword = SHA512(base64Decoded).toString(enc.Hex);
+
+  if (user.Password != hashedPassword) {
     return NextResponse.json('Invalid User and Password', { status: 400 });
   }
 
