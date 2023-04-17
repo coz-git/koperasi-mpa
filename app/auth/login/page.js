@@ -1,38 +1,52 @@
 'use client';
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
 import Loading from '../../../components/Loading';
 import { Toast } from 'primereact/toast';
+import { UserContext } from '../../../context/userContext';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const router = useRouter();
   const email = useRef('');
   const password = useRef('');
   const toast = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { saveLogin, isLogin, userData } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log({ isLogin });
+    console.log({ userData });
+  }, [isLogin, userData]);
 
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    const result = await signIn('credentials', {
-      email: email.current,
-      password: password.current,
-      redirect: true,
-      callbackUrl: '/',
+    const res = await fetch(`/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        password: password.current,
+        email: email.current,
+      }),
     });
 
-    console.log(result);
+    const resData = await res.json();
 
-    if (result.status == 401) {
+    if (res.status == 400) {
       toast.current.show({
         severity: 'error',
         summary: 'Something Wrong',
-        detail: result.error,
+        detail: resData,
       });
     }
 
+    saveLogin(resData);
+    router.push('/auth/login');
     setIsLoading(false);
   };
 

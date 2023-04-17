@@ -1,7 +1,6 @@
 'use client';
 import './globals.css';
-import { SessionProvider } from 'next-auth/react';
-import AppBar from '../components/appbar';
+import { UserProvider } from '../context/userContext';
 
 import 'primereact/resources/themes/lara-light-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -19,10 +18,9 @@ export default function RootLayout({ children, session }) {
         <title>Koperasi MPA || Coz</title>
       </head>
       <body>
-        <SessionProvider>
-          {/* <AppBar /> */}
+        <UserProvider>
           <div>{children}</div>
-        </SessionProvider>
+        </UserProvider>
       </body>
     </html>
   );

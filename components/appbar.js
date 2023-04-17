@@ -4,7 +4,7 @@ import React from 'react';
 
 const AppBar = () => {
   const { data } = useSession();
-  console.log({ data });
+  // console.log({ data });
 
   return (
     <div className="bg-blue-200 p-2 flex gap-5 ">

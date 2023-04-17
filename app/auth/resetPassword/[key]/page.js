@@ -52,7 +52,6 @@ const resetPassword = ({ params }) => {
       <Dialog
         header="Congrats!"
         visible={showPopUp}
-        // style={{ width: '30vw' }}
         onHide={() => handleRedirect()}
         footer={footerContent}
       >
