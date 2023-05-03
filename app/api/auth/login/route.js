@@ -24,10 +24,17 @@ export async function POST(req) {
     return NextResponse.json('Invalid User and Password', { status: 400 });
   }
 
+  let returnUserData = {
+    Role: user.Role,
+    Email: user.Email,
+    UserId: user.UserId,
+    Token: user.accessToken,
+  }
+
   /* Sign token */
-  user.accessToken = jwt.sign(user, KEY, {
+  returnUserData.accessToken = jwt.sign(returnUserData, KEY, {
     expiresIn: 31556926, // 1 year in seconds
   });
 
-  return NextResponse.json(user, { status: 200 });
+  return NextResponse.json(returnUserData, { status: 200 });
 }

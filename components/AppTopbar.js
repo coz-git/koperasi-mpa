@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/navigation';
 import { classNames } from 'primereact/utils';
 import React, {
   forwardRef,
@@ -8,8 +8,10 @@ import React, {
   useRef,
 } from 'react';
 import { LayoutContext } from '../context/layoutContext';
+import { useSession, signOut } from "next-auth/react"
 
 const AppTopbar = forwardRef((props, ref) => {
+  const router = useRouter();
   const { layoutState, onMenuToggle, showProfileSidebar } =
     useContext(LayoutContext);
   const menubuttonRef = useRef(null);
@@ -56,12 +58,12 @@ const AppTopbar = forwardRef((props, ref) => {
           <i className="pi pi-user"></i>
           <span>Profile</span>
         </button>
-        <Link href="/auth/login">
-          <button type="button" className="p-link layout-topbar-button">
-            <i className="pi pi-sign-out"></i>
-            <span>Settings</span>
-          </button>
-        </Link>
+        {/* <Link href="/auth/login"> */}
+        <button onClick={() => signOut()} type="button" className="p-link layout-topbar-button">
+          <i className="pi pi-sign-out"></i>
+          <span>Sign Out</span>
+        </button>
+        {/* </Link> */}
       </div>
     </div>
   );

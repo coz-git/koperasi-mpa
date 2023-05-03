@@ -1,6 +1,7 @@
 'use client';
 import './globals.css';
 import { UserProvider } from '../context/userContext';
+import { SessionProvider } from 'next-auth/react';
 
 import 'primereact/resources/themes/lara-light-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -18,9 +19,11 @@ export default function RootLayout({ children, session }) {
         <title>Koperasi MPA || Coz</title>
       </head>
       <body>
-        <UserProvider>
-          <div>{children}</div>
-        </UserProvider>
+        <SessionProvider>
+          <UserProvider>
+            <div>{children}</div>
+          </UserProvider>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { signIn } from 'next-auth/react';
 import { useRef, useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import Loading from '../../../components/Loading';
@@ -17,36 +18,37 @@ const Login = () => {
   const { saveLogin, isLogin, userData } = useContext(UserContext);
 
   useEffect(() => {
-    console.log({ isLogin });
-    console.log({ userData });
-  }, [isLogin, userData]);
+    location.reload();
+  }, [])
+  
+
+  
 
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    const res = await fetch(`/api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        password: password.current,
-        email: email.current,
-      }),
+    const result = await signIn('credentials', {
+      email: email.current,
+      password: password.current,
+      redirect: false,
+      callbackUrl: '/',
+    })
+    .finally(() => {
+      location.reload();
     });
-
-    const resData = await res.json();
-
-    if (res.status == 400) {
+    
+    if(result.status == 401) {
       toast.current.show({
         severity: 'error',
         summary: 'Something Wrong',
-        detail: resData,
+        detail: result.error,
       });
+    } 
+    else {
+      // console.log(result)
+      router.push('/')
     }
 
-    saveLogin(resData);
-    router.push('/auth/login');
     setIsLoading(false);
   };
 
@@ -58,9 +60,15 @@ const Login = () => {
       ) : (
         <section className="bg-gray-50 dark:bg-gray-900">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <Link
+            // className="text-sky-600 hover:text-sky-700"
+            href={'/'}
+          >
             <p className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
               Koperasi MPA
             </p>
+          </Link>
+            
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -133,5 +141,53 @@ const Login = () => {
     </>
   );
 };
+
+// export async function getStaticProps() {
+//   const app = initializeApp(firebaseConfig);
+//   const db = getFirestore(app);
+//   const paintingsRef = collection(db, 'paintings');
+//   const snapshot = await getDocs(paintingsRef);
+//   const paintings = [];
+//   snapshot.docs.forEach((doc) => {
+//     paintings.push({ ...doc.data(), id: doc.id })
+//   });
+//   return {
+//     props: {
+//       products: paintings
+//     }
+//   };
+// }
+
+// export const getServerSideProps = async (UserContext) => {
+//   // redirect test: always redirect to '/login'
+//   ctx.res.setHeader('Location', '/login');
+//   ctx.res.statusCode = 302;
+//   ctx.res.end();
+//   return {
+//     props: {},
+//   };
+// };
+
+export async function getServerSideProps() { 
+    // const res = await fetch ('https://jsonplaceholder.typicode.com/users')
+    // const data = await res.json();
+
+    // The next line will only be logged on the server and never on the browser console even if we make 
+    // client-side navigation.
+    // This confirms that `getServerSideProps` is guaranteed to run on the server and never on the client (or browser).
+    return { redirect: { destination: '/', permanent: false, },}
+}
+
+// export getServerSideProps = async () => {
+//   // console.log(JSON.parse(Cookies.get('userData')))
+//   console.log('cobaaa')
+//   // redirect test: always redirect to '/login'
+//   // ctx.res.setHeader('Location', '/login');
+//   // ctx.res.statusCode = 302;
+//   // ctx.res.end();
+//   return {
+//     props: {},
+//   };
+// };
 
 export default Login;
