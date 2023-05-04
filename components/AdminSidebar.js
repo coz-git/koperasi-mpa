@@ -16,6 +16,11 @@ const AppSidebar = () => {
       label: 'UI Components',
       items: [
         {
+          label: 'User Management',
+          icon: 'pi pi-fw pi-users',
+          to: '/admin/user',
+        },
+        {
           label: 'Form Layout',
           icon: 'pi pi-fw pi-id-card',
           to: '/admin/oke',

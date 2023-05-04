@@ -12,7 +12,13 @@ const layout = (props) => {
     <>
       <LayoutProvider>
         <AdminLayout>
-          <div>{props.children}</div>
+          <div className="grid">
+            <div className="col-12 xl:col-12">
+              <div className="card">
+                {props.children}
+              </div>
+            </div>
+          </div>
         </AdminLayout>
       </LayoutProvider>
     </>
