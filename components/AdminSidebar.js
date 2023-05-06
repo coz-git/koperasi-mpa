@@ -1,16 +1,12 @@
 import React, { useContext } from 'react';
 import AppMenuitem from './AppMenuitem';
-// import { LayoutContext } from './context/layoutcontext';
 import { MenuProvider } from '../context/menuContext';
-import Link from 'next/link';
 
 const AppSidebar = () => {
-  // const { layoutConfig } = useContext(LayoutContext);
-
   const model = [
     {
       label: 'Home',
-      items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/admin' }],
+      items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/admin/dashboard' }],
     },
     {
       label: 'UI Components',

@@ -14,11 +14,11 @@ const AppMenuitem = (props) => {
   const key = props.parentKey
     ? props.parentKey + '-' + props.index
     : String(props.index);
-  const isActiveRoute = item.to && pathname === item.to;
+  const isActiveRoute = item.to && pathname.includes(item.to);
   const active = activeMenu === key || activeMenu.startsWith(key + '-');
 
   useEffect(() => {
-    if (item.to === pathname) {
+    if (pathname.includes(item.to)) {
       setActiveMenu(key);
     }
   }, []);

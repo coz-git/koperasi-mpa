@@ -76,7 +76,7 @@ export async function middleware(req) {
     req: req,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  console.log(token)
+  // console.log(token)
 
   // if (
   //   req.nextUrl.pathname.startsWith('/auth/login') &&
@@ -86,10 +86,10 @@ export async function middleware(req) {
   // }
 
   if (
-    req.nextUrl.pathname == '/' &&
+    (req.nextUrl.pathname == '/' || req.nextUrl.pathname == '/admin')  &&
     token?.Role == 'admin'
   ) {
-    return NextResponse.redirect(new URL('/admin', req.url))
+    return NextResponse.redirect(new URL('/admin/dashboard', req.url))
   }
 
   if (
