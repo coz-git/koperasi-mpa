@@ -40,7 +40,7 @@ const Login = () => {
     if(result.status == 401) {
       toast.current.show({
         severity: 'error',
-        summary: 'Something Wrong',
+        summary: 'Error',
         detail: result.error,
       });
     } 

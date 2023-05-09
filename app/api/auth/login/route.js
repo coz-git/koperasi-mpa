@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import DB from './../../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { enc, SHA512 } from 'crypto-js';
-import AES from 'crypto-js/aes';
 
 const KEY = process.env.JWT_KEY;
 
