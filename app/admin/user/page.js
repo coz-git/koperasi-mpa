@@ -7,11 +7,13 @@ import { Button } from 'primereact/button';
 import { useSession } from "next-auth/react"
 import Link from 'next/link';
 import { Toast } from 'primereact/toast';
+import { useRouter } from 'next/navigation';
 
 import Loading from './../../../components/Loading';
 
 const User = () => {
   const { data: sessionData, status : sessionStatus } = useSession()
+  const router = useRouter();
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const toast = useRef(null);
@@ -46,6 +48,32 @@ const User = () => {
     setLoading(false);
   };
 
+  const handleEdit = (data) => {
+    console.log({data})
+    // router.push(`/admin/user/edit/${data.UserId}`)
+    router.push({ 
+      pathname: `/admin/user`, 
+      query: { userData: data } 
+    });
+    // router.push({
+    //   pathname: '/post/[pid]',
+    //   query: { pid: post.id },
+    // });
+  }
+
+  const handleDelete = (id) => {
+    console.log({id})
+  }
+
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <>
+        <Button type="button" onClick={() => {handleEdit(rowData)}} size="small" style={{margin : '0 1px'}} icon="pi pi-pencil"></Button>
+        <Button type="button" onClick={() => {handleDelete(rowData.UserId)}} size="small" style={{margin : '0 1px'}} severity="danger" icon="pi pi-trash"></Button>
+      </>
+    )
+  }
+
   // if (loading) { return <Loading isDashboard={true} /> } 
   return (
     <>
@@ -75,6 +103,7 @@ const User = () => {
                 <Column field="Email" header="Email"></Column>
                 <Column field="Telp" header="Telp"></Column>
                 <Column field="Alamat" header="Alamat"></Column>
+                <Column headerStyle={{  textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible', display : 'flex', justifyContent : 'space-around' }} body={actionBodyTemplate} />
               </DataTable>
             </div>
             )}
